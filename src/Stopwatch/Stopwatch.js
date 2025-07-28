@@ -1,0 +1,78 @@
+import React, { useState, useRef, useEffect } from 'react';
+
+const Stopwatch = () => {
+  const [seconds, setSeconds] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+    if (isRunning) {
+      intervalRef.current = setInterval(() => {
+        setSeconds(prev => prev + 1);
+      }, 1000);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+
+    // Cleanup on unmount
+    return () => clearInterval(intervalRef.current);
+  }, [isRunning]);
+
+  const formatTime = (totalSeconds) => {
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+    return `${mins}:${secs < 10 ? '0' + secs : secs}`;
+  };
+
+  const handleReset = () => {
+    setIsRunning(false);
+    setSeconds(0);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1>Stopwatch</h1>
+      <div style={styles.timeSection}>
+        <label style={styles.label}>Time</label>
+        <div style={styles.timeDisplay}>{formatTime(seconds)}</div>
+      </div>
+      <div style={styles.buttonSection}>
+        <button onClick={() => setIsRunning(!isRunning)} style={styles.button}>
+          {isRunning ? 'Stop' : 'Start'}
+        </button>
+        <button onClick={handleReset} style={styles.button}>Reset</button>
+      </div>
+    </div>
+  );
+};
+
+const styles = {
+  container: {
+    fontFamily: 'Arial',
+    textAlign: 'center',
+    marginTop: '100px',
+  },
+  timeSection: {
+    margin: '20px 0',
+  },
+  label: {
+    fontSize: '20px',
+    display: 'block',
+    marginBottom: '10px',
+  },
+  timeDisplay: {
+    fontSize: '40px',
+    fontWeight: 'bold',
+  },
+  buttonSection: {
+    marginTop: '20px',
+  },
+  button: {
+    padding: '10px 20px',
+    fontSize: '16px',
+    margin: '0 10px',
+    cursor: 'pointer',
+  }
+};
+
+export default Stopwatch;
