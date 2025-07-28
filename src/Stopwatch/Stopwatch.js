@@ -8,13 +8,12 @@ const Stopwatch = () => {
   useEffect(() => {
     if (isRunning) {
       intervalRef.current = setInterval(() => {
-        setSeconds(prev => prev + 1);
+        setSeconds((prev) => prev + 1);
       }, 1000);
     } else {
       clearInterval(intervalRef.current);
     }
 
-    // Cleanup on unmount
     return () => clearInterval(intervalRef.current);
   }, [isRunning]);
 
@@ -32,10 +31,8 @@ const Stopwatch = () => {
   return (
     <div style={styles.container}>
       <h1>Stopwatch</h1>
-      <div style={styles.timeSection}>
-        <label style={styles.label}>Time</label>
-        <div style={styles.timeDisplay}>{formatTime(seconds)}</div>
-      </div>
+      <div style={styles.timeDisplay}>Time: {formatTime(seconds)}</div>
+
       <div style={styles.buttonSection}>
         <button onClick={() => setIsRunning(!isRunning)} style={styles.button}>
           {isRunning ? 'Stop' : 'Start'}
@@ -52,17 +49,10 @@ const styles = {
     textAlign: 'center',
     marginTop: '100px',
   },
-  timeSection: {
-    margin: '20px 0',
-  },
-  label: {
-    fontSize: '20px',
-    display: 'block',
-    marginBottom: '10px',
-  },
   timeDisplay: {
     fontSize: '40px',
     fontWeight: 'bold',
+    marginBottom: '20px',
   },
   buttonSection: {
     marginTop: '20px',
