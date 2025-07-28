@@ -1,6 +1,7 @@
 import Calculator from './calculator/calculator.js';
 import Stopwatch from './Stopwatch/Stopwatch.js';
 import Xlogin from './Login/login.js';
+import WeatherApp from './Weather/Weather.js';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';    
 
@@ -12,12 +13,14 @@ function App() {
           <Link to="/" style={{ marginRight: '10px' }}>Home</Link>
           <Link to="/login" style={{ marginRight: '10px' }}>XLogin</Link>
           <Link to="/stopwatch" style={{ marginRight: '10px' }}>Stopwatch</Link>
+          <Link to="/weatherapp" style={{ marginRight: '10px' }}>WeatherApp</Link>
         </nav>
 
         <Routes>
           <Route path="/" element={<Calculator />} />
           <Route path="/login" element={<Xlogin />} />
           <Route path="/stopwatch" element={<Stopwatch />} />
+          <Route path="/weatherapp" element={<WeatherApp/>} />
         </Routes>
       </Router>
     </div>
