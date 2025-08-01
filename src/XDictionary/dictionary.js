@@ -37,16 +37,11 @@ function XDictionary() {
         Search
       </button>
 
-      {(definition !== null || notFound) && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>Definition:</h3>
-          {definition ? (
-            <p>{definition}</p>
-          ) : (
-            <p>Word not found in the dictionary.</p>
-          )}
-        </div>
-      )}
+      <div style={{ marginTop: "20px" }}>
+        <h3>Definition:</h3>
+        {definition && <p>{definition}</p>}
+        {notFound && <p>Word not found in the dictionary.</p>}
+      </div>
     </div>
   );
 }
