@@ -4,6 +4,7 @@ import Xlogin from './Login/login.js';
 import WeatherApp from './Weather/Weather.js';
 import XSpellCheck from './XSpellCheck/XSpellCheck.js';
 import XDictionary from './XDictionary/dictionary.js';
+import XTable from './XTable/XTable.js';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';    
 
@@ -18,6 +19,7 @@ function App() {
           <Link to="/weatherapp" style={{ marginRight: '10px' }}>WeatherApp</Link>
           <Link to="/spellcheck" style={{ marginRight: '10px' }}>XSpellCheck</Link>
           <Link to="/dictionary" style={{ marginRight: '10px' }}>XDictionary</Link>
+          <Link to="/xtable" style={{ marginRight: '10px' }}>XTable</Link>
         </nav>
 
         <Routes>
@@ -27,6 +29,7 @@ function App() {
           <Route path="/weatherapp" element={<WeatherApp/>} />
           <Route path="/spellcheck" element={<XSpellCheck/>} />
           <Route path="/dictionary" element={<XDictionary/>} />
+          <Route path="/xtable" element={<XTable/>} />
         </Routes>
       </Router>
     </div>
