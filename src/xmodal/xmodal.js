@@ -53,7 +53,7 @@ const XModal = () => {
       currentDate.setHours(0, 0, 0, 0); // Reset time to compare only dates
       
       if (selectedDate > currentDate) {
-        alert('Invalid phone number. Please enter a 10-digit phone number.');
+        alert('Invalid date of birth. Please enter a valid date.');
         return false;
       }
     }
