@@ -33,7 +33,32 @@ const XModal = () => {
   };
 
   const validateForm = () => {
-    // Check if any field is empty
+    // Validate email format first (must contain @) if email is provided
+    if (formData.email.trim() && !formData.email.includes('@')) {
+      alert('Invalid email. Please check your email address.');
+      return false;
+    }
+
+    // Validate phone number format (must be exactly 10 digits) if phone is provided
+    const phoneRegex = /^\d{10}$/;
+    if (formData.phone.trim() && !phoneRegex.test(formData.phone)) {
+      alert('Invalid phone number. Please enter a 10-digit phone number.');
+      return false;
+    }
+
+    // Validate date of birth (must not be in the future) if date is provided
+    if (formData.dob.trim()) {
+      const selectedDate = new Date(formData.dob);
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0); // Reset time to compare only dates
+      
+      if (selectedDate > currentDate) {
+        alert('Invalid phone number. Please enter a 10-digit phone number.');
+        return false;
+      }
+    }
+
+    // Check if any field is empty (after format validation)
     if (!formData.username.trim()) {
       alert('Please fill out the Username field.');
       return false;
@@ -51,33 +76,12 @@ const XModal = () => {
       return false;
     }
 
-    // Validate email (must contain @)
-    if (!formData.email.includes('@')) {
-      alert('Invalid email. Please check your email address.');
-      return false;
-    }
-
-    // Validate phone number (must be exactly 10 digits)
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(formData.phone)) {
-      alert('Invalid phone number. Please enter a 10-digit phone number.');
-      return false;
-    }
-
-    // Validate date of birth (must not be in the future)
-    const selectedDate = new Date(formData.dob);
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0); // Reset time to compare only dates
-    
-    if (selectedDate > currentDate) {
-      alert('Invalid phone number. Please enter a 10-digit phone number.');
-      return false;
-    }
-
     return true;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
     if (validateForm()) {
       // If validation passes, close modal and reset form
       closeModal();
@@ -155,7 +159,7 @@ const XModal = () => {
               Fill Details
             </h2>
             
-            <div>
+            <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: '15px' }}>
                 <label htmlFor="username" style={{ 
                   display: 'block', 
@@ -264,9 +268,8 @@ const XModal = () => {
               </div>
 
               <button
-                type="button"
+                type="submit"
                 className="submit-button"
-                onClick={handleSubmit}
                 style={{
                   width: '100%',
                   padding: '12px',
@@ -282,7 +285,7 @@ const XModal = () => {
               >
                 Submit
               </button>
-            </div>
+            </form>
           </div>
         </div>
       )}
